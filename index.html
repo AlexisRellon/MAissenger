@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
+      rel="stylesheet" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-mark/dist/markdown-it-mark.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-ins/dist/markdown-it-ins.min.js"></script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-gray-900 text-gray-200">
+    <div
+      class="cb-cont flex flex-col justify-end gap-1 mx-auto p-4 h-screen w-4/5 border-gray-700">
+      <div
+        class="chat-cont h-full flex flex-col gap-4 w-full p-2.5 overflow-y-scroll"></div>
+      <div class="typing-cont w-full flex justify-center items-center">
+        <div class="chat-textarea flex text-gray-200 items-stretch w-full">
+          <textarea
+            name=""
+            class="flex-grow px-7 py-2 bg-gray-900 border border-r-0 rounded-full rounded-tr-none rounded-br-none text-gray-100 border-gray-600 resize-none transition-all duration-300 ease-in-out w-1/4 focus:w-full focus:outline-none"
+            spellcheck="false"
+            id="chat-input"
+            placeholder="Ask wassup"
+            autofocus
+            required></textarea>
+          <div
+            class="px-3 flex items-center bg-gray-900 border border-r-0 border-l-0 text-gray-100 border-gray-600">
+            <select
+              name="persona"
+              id="persona"
+              class="bg-gray-900 text-gray-500 flex-grow focus:outline-none">
+              <option value="oiia">OIIA Cat</option>
+              <option value="rick">Rick</option>
+              <option value="scary">Larry</option>
+              <option value="finn">Finn</option>
+            </select>
+          </div>
+          <div
+            class="btn p-1.5 flex justify-center items-center w-12 border border-l-0 rounded-full rounded-tl-none rounded-bl-none border-gray-600">
+            <button
+              class="w-full h-full flex justify-center items-center bg-gray-600 rounded-full text-gray-200 hover:bg-gray-500 focus:outline-none"
+              id="chat-send">
+              <span class="material-symbols-rounded">send</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="mainmodule.js"></script>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

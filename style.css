@@ -1,0 +1,273 @@
+*::-webkit-scrollbar {
+    height: 9px;
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 20px;
+    background-color: #111827;
+}
+
+*::-webkit-scrollbar-track:hover {
+    background-color: #111827;
+}
+
+*::-webkit-scrollbar-track:active {
+    background-color: #111827;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: #647888;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #647888;
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background-color: #647888;
+}
+
+.cb-cont {
+    height: 100vh;
+    width: 80%;
+}
+
+.typing-cont {
+    width: 100%;
+
+}
+
+.typing-cont textarea {
+    width: 100%;
+    resize: none;
+
+}
+
+.chat-textarea {
+    height: 70%;
+}
+
+.chat-body-inner {
+    height: fit-content;
+    width: 87%;
+    overflow-y: auto;
+    font-family: inherit;
+    /* Use default Tailwind CSS font */
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.chat-body-inner h1 {
+    font-size: 2rem;
+    /* Larger size for h1 */
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chat-body-inner h2 {
+    font-size: 1.75rem;
+    /* Slightly smaller for h2 */
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chat-body-inner h3 {
+    font-size: 1.5rem;
+    /* Slightly smaller for h3 */
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chat-body-inner h4 {
+    font-size: 1.25rem;
+    /* Slightly smaller for h4 */
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chat-body-inner h5 {
+    font-size: 1rem;
+    /* Slightly smaller for h5 */
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chat-body-inner h6 {
+    font-size: 0.875rem;
+    /* Slightly smaller for h6 */
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chat-body-inner a {
+    color: #3b82f6;
+    text-decoration: underline;
+}
+
+.chat-body-inner blockquote {
+    border-left: 4px solid #647888;
+    background-color: #161e30;
+    padding-left: 1rem;
+    color: #9ca3af;
+    margin: 1rem 0;
+}
+
+.chat-body-inner code {
+    background-color: #1f2937;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.chat-body-inner pre {
+
+    margin-bottom: revert;
+
+    code {
+        display: block;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+}
+
+.chat-body-inner {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+
+    ol,
+    ul {
+        margin: revert;
+        padding: revert;
+    }
+
+    ol {
+        list-style: decimal;
+    }
+
+    ul {
+        list-style: disc;
+    }
+}
+
+.chat-body-inner li {
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    /* Ensure text color is visible */
+}
+
+.chat-body-inner table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.chat-body-inner th,
+.chat-body-inner td {
+    border: 1px solid #647888;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.chat-body-inner th {
+    background-color: #1f2937;
+    color: #ffffff;
+}
+
+.chat-body-inner tr:nth-child(even) {
+    background-color: #2d3748;
+}
+
+.user-content {
+    height: fit-content;
+    width: 100%;
+    /* Ensure uniform width */
+}
+
+/* User avatar */
+.user-content::after {
+    content: '';
+    background-image: url('https://www.w3schools.com/howto/img_avatar.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+/* Bot avatar */
+.gemini-response::before {
+    content: '';
+    background-image: url('https://www.w3schools.com/howto/img_avatar.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 0;
+    left: 0;
+    object-position: center;
+    clip-path: circle(50% at center);
+}
+
+/* Avatars based on persona */
+[data-persona="oiia"]::before {
+    background-color: greenyellow;
+    background-image: url('./resources/avatars/oiia.png');
+}
+
+[data-persona="rick"]::before {
+    background-image: url('./resources/avatars/rick.jpg');
+}
+
+[data-persona="scary"]::before {
+    background-color: honeydew;
+    background-image: url('./resources/avatars/evil-larry.jpg');
+}
+
+[data-persona="finn"]::before {
+    background-image: url('path/to/finn-avatar.png');
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typing {
+    0% {
+        content: '|';
+    }
+
+    50% {
+        content: '';
+    }
+
+    100% {
+        content: '|';
+    }
+}
+
+.loading-indicator p::after {
+    content: '|';
+    animation: typing 1s steps(2, end) infinite;
+}
