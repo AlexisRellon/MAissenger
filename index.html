@@ -10,7 +10,9 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
       rel="stylesheet" />
-    <title>Document</title>
+      <!-- Faivocn -->
+      <link rel="icon" href="./favicon.png" type="image/x-icon">
+    <title>MAissenger</title>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-mark/dist/markdown-it-mark.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-ins/dist/markdown-it-ins.min.js"></script>
@@ -24,18 +26,55 @@
     </script>
   </head>
   <body class="bg-gray-900 text-gray-200">
+    <div id="filter-R"></div> 
     <div
       class="cb-cont flex flex-col justify-end gap-1 mx-auto p-4 h-screen w-4/5 border-gray-700">
       <div
-        class="chat-cont h-full flex flex-col gap-4 w-full p-2.5 overflow-y-scroll"></div>
+        class="chat-cont h-full flex flex-col gap-4 w-full p-2.5 overflow-y-scroll">
+        <div
+          id="welcome-screen"
+          class="flex flex-col items-center justify-center h-full">
+          <!-- Logo -->
+          <img
+            src="./favicon.png"
+            alt="Logo"
+            class="w-16 h-16 mb-6 rounded-full bg-gray-800" />
+          <div class="w-max flex gap-2 text-center h-16">
+            <h1 class="text-4xl font-bold mb-4">Welcome to</h1>
+            <h1
+              class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-red-500 text-transparent bg-clip-text">
+              MAissenger
+            </h1>
+          </div>
+          <p class="text-lg mb-8">Begin a chat using this preset.</p>
+          <div
+            class="suggested-prompts-container flex flex-wrap gap-4 justify-center">
+            <!-- Suggested prompts will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </div>
       <div class="typing-cont w-full flex justify-center items-center">
         <div class="chat-textarea flex text-gray-200 items-stretch w-full">
+          <div
+            class="w-12 flex justify-center items-center border border-gray-600 border-r-0 rounded-full rounded-tr-none rounded-br-none relative">
+            <!-- Start a new conversation button -->
+            <button
+              class="w-8 h-8 flex justify-center items-center bg-gradient-to-tr from-blue-700 to-blue-900 rounded-full text-gray-200 focus:outline-none delay-75 transition-all duration-300 ease-in-out"
+              id="start-conversation">
+              <span class="material-symbols-rounded">add</span>
+            </button>
+            <!-- Tooltip -->
+            <div
+              class="tooltip absolute text-center bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-700 text-gray-200 text-xs rounded py-1 px-2 opacity-0 transition-opacity duration-300">
+              Start a new conversation
+            </div>
+          </div>
           <textarea
             name=""
-            class="flex-grow px-7 py-2 bg-gray-900 border border-r-0 rounded-full rounded-tr-none rounded-br-none text-gray-100 border-gray-600 resize-none transition-all duration-300 ease-in-out w-1/4 focus:w-full focus:outline-none"
+            class="flex-grow px-3 py-2 bg-gray-900 border border-l-0 text-gray-100 border-gray-600 resize-none transition-all duration-300 ease-in-out w-1/4 focus:w-full focus:outline-none"
             spellcheck="false"
             id="chat-input"
-            placeholder="Ask wassup"
+            placeholder="Start chatting on the chatroom..."
             autofocus
             required></textarea>
           <div
@@ -44,23 +83,35 @@
               name="persona"
               id="persona"
               class="bg-gray-900 text-gray-500 flex-grow focus:outline-none">
-              <option value="oiia">OIIA Cat</option>
+              <option value="peter">Peter</option>
               <option value="rick">Rick</option>
               <option value="scary">Larry</option>
-              <option value="finn">Finn</option>
+              <option value="ted">Ted Failon</option>
+              <option value="rizal">Jose Rizal</option>
+              <option value="special" id="random" hidden>3301</option>
             </select>
           </div>
           <div
-            class="btn p-1.5 flex justify-center items-center w-12 border border-l-0 rounded-full rounded-tl-none rounded-bl-none border-gray-600">
+            class="btn p-1.5 flex justify-center items-center w-12 border border-l-0 rounded-full rounded-tl-none rounded-bl-none border-gray-600 relative">
+            <!-- Send button -->
             <button
-              class="w-full h-full flex justify-center items-center bg-gray-600 rounded-full text-gray-200 hover:bg-gray-500 focus:outline-none"
+              class="w-full h-full flex justify-center items-center bg-gray-600 rounded-full text-gray-200 hover:bg-gray-500 focus:outline-none transition-all duration-300 ease-in-out"
               id="chat-send">
               <span class="material-symbols-rounded">send</span>
             </button>
+            <!-- Tooltip -->
+            <div
+              class="tooltip absolute text-center bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-700 text-gray-200 text-xs rounded py-1 px-2 opacity-0 transition-opacity duration-300">
+              Send
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="nothing" id="stare"></div>
+    <div class="jumpscare"></div>
+    <div class="glitch-overlay"></div>
+
     <script type="module" src="mainmodule.js"></script>
 
     <script type="module" src="script.js"></script>

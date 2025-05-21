@@ -49,9 +49,21 @@
     height: 70%;
 }
 
+#start-conversation:hover {
+    scale: 1.1;
+
+    +.tooltip {
+        opacity: 1;
+    }
+}
+
+#chat-send:hover+.tooltip {
+    opacity: 1;
+}
+
 .chat-body-inner {
     height: fit-content;
-    width: 87%;
+    width: fit-content;
     overflow-y: auto;
     font-family: inherit;
     /* Use default Tailwind CSS font */
@@ -219,26 +231,38 @@
     top: 0;
     left: 0;
     object-position: center;
-    clip-path: circle(50% at center);
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 /* Avatars based on persona */
-[data-persona="oiia"]::before {
-    background-color: greenyellow;
-    background-image: url('./resources/avatars/oiia.png');
+[data-persona="peter"]::before {
+    background-image: url('https://th.bing.com/th/id/OIP.gFwRShtpDP1kcBy5H3YGzgHaG-?w=960&h=905&rs=1&pid=ImgDetMain');
 }
 
 [data-persona="rick"]::before {
-    background-image: url('./resources/avatars/rick.jpg');
+    background-image: url('https://i.imgflip.com/cn1pb.jpg');
 }
 
 [data-persona="scary"]::before {
-    background-color: honeydew;
-    background-image: url('./resources/avatars/evil-larry.jpg');
+    background-image: url('https://i.imgflip.com/6hvn6a.jpg');
 }
 
-[data-persona="finn"]::before {
-    background-image: url('path/to/finn-avatar.png');
+[data-persona="ted"]::before {
+    background-image: url('https://1.bp.blogspot.com/-DsHeZOZOIN0/X0tSPISBnZI/AAAAAAAA86E/87bO49dRhBsWlbgL-JStRjPFL01DGDQTwCLcBGAsYHQ/s1600/ted-failon.JPG');
+}
+
+[data-persona="rizal"]::before {
+    background-image: url('https://1.bp.blogspot.com/-AQn0Skhk67w/XszjMxFHlcI/AAAAAAAAUjM/krkbVWvtWZUsXwivvkEso8UU-SGdPkrRwCLcBGAsYHQ/s1600/rizal%2Bkulay.PNG');
+}
+
+[data-persona="special"]::before,
+[data-persona="question1"]::before,
+[data-persona="question2"]::before,
+[data-persona="question3"]::before,
+[data-persona="question4"]::before,
+[data-persona="question5"]::before {
+    background-image: url('https://images.saymedia-content.com/.image/t_share/MTc0NDczMjkyMjYwOTEwNzI2/puzzling-the-internet-the-mystery-of-cicada-3301.jpg');
 }
 
 @keyframes fadeIn {
@@ -255,19 +279,523 @@
 
 @keyframes typing {
     0% {
-        content: '|';
+        content: '.';
     }
 
     50% {
-        content: '';
+        content: '..';
     }
 
     100% {
-        content: '|';
+        content: '...';
     }
 }
 
 .loading-indicator p::after {
-    content: '|';
+    content: '.';
     animation: typing 1s steps(2, end) infinite;
 }
+
+.suggested-prompt-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.suggested-prompt-card:hover {
+    background-color: #4a5568;
+    /* Tailwind color for hover effect */
+}
+
+body {
+    position: relative;
+    overflow: hidden;
+}
+
+.chat-cont {
+    position: relative;
+    z-index: 1;
+    /* Ensure chat-cont is above the glitch overlay */
+}
+
+.chat-cont.active {
+    animation: chatGlitch 0.1s steps(6, end) infinite;
+    filter: hue-rotate(180deg);
+    /* Change hue-rotate filter on active */
+    background-color: #2d3748;
+}
+
+.chat-textarea.active {
+    animation: chatGlitch 0.1s steps(6, end) infinite;
+    filter: hue-rotate(180deg);
+    /* Change hue-rotate filter on active */
+    background-color: #2d3748;
+}
+
+.glitch-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    z-index: 2;
+    /* Ensure glitch overlay is above chat-cont */
+    filter: hue-rotate(90deg);
+    /* Apply hue-rotate filter */
+}
+
+.glitch-overlay.active {
+    animation: glitch 0.1s steps(5, end) infinite;
+    filter: hue-rotate(180deg);
+    /* Change hue-rotate filter on active */
+    background-color: #2d3748;
+}
+
+/* nothing */
+.nothing {
+    background-image: url('https://www.meme-arsenal.com/memes/fa3ce36d25b92531bb38c39306c7c6d3.jpg');
+    background-color: black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 80;
+    opacity: .005;
+}
+
+.nothing.start {
+    animation: stare 360s forwards;
+}
+
+.jumpscare {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+    opacity: 0;
+}
+
+.jumpscare.active {
+    background-image: url('https://media1.tenor.com/m/gnZcXcBonfUAAAAC/you-are-my-sunshine-lebron.gif');
+    opacity: 1;
+    animation: fadeOut 2.5s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes stare {
+    from {
+        opacity: 0.01;
+    }
+
+    to {
+        opacity: 0.05;
+    }
+}
+
+@keyframes glitch {
+    0% {
+        background-color: rgba(45, 55, 72, 0.1);
+        width: 100%;
+        height: 100%;
+        transform: translate(0, 0) skew(0deg);
+    }
+
+    10% {
+        background-color: rgba(255, 0, 0, 0.2);
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+        transform: translate(2%, -2%) skew(-1deg);
+    }
+
+    20% {
+        background-color: rgba(0, 255, 0, 0.3);
+        width: calc(100% + 5px);
+        height: calc(100% + 5px);
+        transform: translate(-3%, 3%) skew(3deg);
+    }
+
+    30% {
+        background-color: rgba(0, 0, 255, 0.4);
+        width: calc(100% - 15px);
+        height: calc(100% - 15px);
+        transform: translate(4%, -4%) skew(-3deg);
+    }
+
+    40% {
+        background-color: rgba(255, 255, 0, 0.5);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        transform: translate(-5%, 5%) skew(5deg);
+    }
+
+    50% {
+        background-color: rgba(0, 255, 255, 0.6);
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        transform: translate(6%, -6%) skew(-5deg);
+    }
+
+    60% {
+        background-color: rgba(255, 0, 255, 0.7);
+        width: calc(100% + 15px);
+        height: calc(100% + 15px);
+        transform: translate(-7%, 7%) skew(7deg);
+    }
+
+    70% {
+        background-color: rgba(128, 0, 128, 0.8);
+        width: calc(100% - 25px);
+        height: calc(100% - 25px);
+        transform: translate(8%, -8%) skew(-7deg);
+    }
+
+    80% {
+        background-color: rgba(128, 128, 0, 0.9);
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+        transform: translate(-9%, 9%) skew(9deg);
+    }
+
+    90% {
+        background-color: rgba(0, 128, 128, 1);
+        width: calc(100% - 30px);
+        height: calc(100% - 30px);
+        transform: translate(10%, -10%) skew(-9deg);
+    }
+
+    100% {
+        background-color: rgba(45, 55, 72, 0.1);
+        width: 100%;
+        height: 100%;
+        transform: translate(0, 0) skew(0deg);
+    }
+}
+
+@keyframes chatGlitch {
+    0% {
+        width: 100%;
+        height: 100%;
+        transform: translate(0, 0) skew(0deg);
+    }
+
+    10% {
+        width: calc(100% - 5px);
+        height: calc(100% - 5px);
+        transform: translate(1%, -1%) skew(-0.5deg);
+    }
+
+    20% {
+        width: calc(100% + 3px);
+        height: calc(100% + 3px);
+        transform: translate(-1.5%, 1.5%) skew(1.5deg);
+    }
+
+    30% {
+        width: calc(100% - 7px);
+        height: calc(100% - 7px);
+        transform: translate(2%, -2%) skew(-1.5deg);
+    }
+
+    40% {
+        width: calc(100% + 5px);
+        height: calc(100% + 5px);
+        transform: translate(-2.5%, 2.5%) skew(2.5deg);
+    }
+
+    50% {
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+        transform: translate(3%, -3%) skew(-2.5deg);
+    }
+
+    60% {
+        width: calc(100% + 7px);
+        height: calc(100% + 7px);
+        transform: translate(-3.5%, 3.5%) skew(3.5deg);
+    }
+
+    70% {
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        transform: translate(4%, -4%) skew(-3.5deg);
+    }
+
+    80% {
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        transform: translate(-4.5%, 4.5%) skew(4.5deg);
+    }
+
+    90% {
+        width: calc(100% - 15px);
+        height: calc(100% - 15px);
+        transform: translate(5%, -5%) skew(-4.5deg);
+    }
+
+    100% {
+        width: 100%;
+        height: 100%;
+        transform: translate(0, 0) skew(0deg);
+    }
+}
+
+.red {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    mix-blend-mode: overlay;
+    z-index: 50;
+    pointer-events: none;
+    animation: redShift 10s ease-in-out infinite;
+}
+
+@keyframes redShift {
+    0% {
+        opacity: 0.35;
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        opacity: 0.1;
+        filter: hue-rotate(-60deg);
+    }
+    100% {
+        opacity: 0.35;
+        filter: hue-rotate(0deg);
+    }
+    
+}
+
+/* CRT Effect */
+@keyframes flicker {
+    0% {
+        opacity: 0.27861;
+    }
+
+    5% {
+        opacity: 0.34769;
+    }
+
+    10% {
+        opacity: 0.23604;
+    }
+
+    15% {
+        opacity: 0.90626;
+    }
+
+    20% {
+        opacity: 0.18128;
+    }
+
+    25% {
+        opacity: 0.83891;
+    }
+
+    30% {
+        opacity: 0.65583;
+    }
+
+    35% {
+        opacity: 0.67807;
+    }
+
+    40% {
+        opacity: 0.26559;
+    }
+
+    45% {
+        opacity: 0.84693;
+    }
+
+    50% {
+        opacity: 0.96019;
+    }
+
+    55% {
+        opacity: 0.08594;
+    }
+
+    60% {
+        opacity: 0.20313;
+    }
+
+    65% {
+        opacity: 0.71988;
+    }
+
+    70% {
+        opacity: 0.53455;
+    }
+
+    75% {
+        opacity: 0.37288;
+    }
+
+    80% {
+        opacity: 0.71428;
+    }
+
+    85% {
+        opacity: 0.70419;
+    }
+
+    90% {
+        opacity: 0.7003;
+    }
+
+    95% {
+        opacity: 0.36108;
+    }
+
+    100% {
+        opacity: 0.24387;
+    }
+}
+
+@keyframes textShadow {
+    0% {
+        text-shadow: 0.4389924193300864px 0 1px rgba(0, 30, 255, 0.5), -0.4389924193300864px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    5% {
+        text-shadow: 2.7928974010788217px 0 1px rgba(0, 30, 255, 0.5), -2.7928974010788217px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    10% {
+        text-shadow: 0.02956275843481219px 0 1px rgba(0, 30, 255, 0.5), -0.02956275843481219px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    15% {
+        text-shadow: 0.40218538552878136px 0 1px rgba(0, 30, 255, 0.5), -0.40218538552878136px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    20% {
+        text-shadow: 3.4794037899852017px 0 1px rgba(0, 30, 255, 0.5), -3.4794037899852017px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    25% {
+        text-shadow: 1.6125630401149584px 0 1px rgba(0, 30, 255, 0.5), -1.6125630401149584px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    30% {
+        text-shadow: 0.7015590085143956px 0 1px rgba(0, 30, 255, 0.5), -0.7015590085143956px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    35% {
+        text-shadow: 3.896914047650351px 0 1px rgba(0, 30, 255, 0.5), -3.896914047650351px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    40% {
+        text-shadow: 3.870905614848819px 0 1px rgba(0, 30, 255, 0.5), -3.870905614848819px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    45% {
+        text-shadow: 2.231056963361899px 0 1px rgba(0, 30, 255, 0.5), -2.231056963361899px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    50% {
+        text-shadow: 0.08084290417898504px 0 1px rgba(0, 30, 255, 0.5), -0.08084290417898504px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    55% {
+        text-shadow: 2.3758461067427543px 0 1px rgba(0, 30, 255, 0.5), -2.3758461067427543px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    60% {
+        text-shadow: 2.202193051050636px 0 1px rgba(0, 30, 255, 0.5), -2.202193051050636px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    65% {
+        text-shadow: 2.8638780614874975px 0 1px rgba(0, 30, 255, 0.5), -2.8638780614874975px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    70% {
+        text-shadow: 0.48874025155497314px 0 1px rgba(0, 30, 255, 0.5), -0.48874025155497314px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    75% {
+        text-shadow: 1.8948491305757957px 0 1px rgba(0, 30, 255, 0.5), -1.8948491305757957px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    80% {
+        text-shadow: 0.0833037308038857px 0 1px rgba(0, 30, 255, 0.5), -0.0833037308038857px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    85% {
+        text-shadow: 0.09769827255241735px 0 1px rgba(0, 30, 255, 0.5), -0.09769827255241735px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    90% {
+        text-shadow: 3.443339761481782px 0 1px rgba(0, 30, 255, 0.5), -3.443339761481782px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    95% {
+        text-shadow: 2.1841838852799786px 0 1px rgba(0, 30, 255, 0.5), -2.1841838852799786px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+
+    100% {
+        text-shadow: 2.6208764473832513px 0 1px rgba(0, 30, 255, 0.5), -2.6208764473832513px 0 1px rgba(255, 0, 80, 0.3), 0 0 3px;
+    }
+}
+
+.crt::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
+
+.crt::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 5;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.crt {
+    animation: textShadow 1.6s infinite;
+}
+
+/* Credits: https://aleclownes.com/2017/02/01/crt-display.html */
