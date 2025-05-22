@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { API_KEY } from './api-config.js';
+import config from './config.js';
 
-// const API_KEY = process.env.API_KEY;
+const API_KEY = config.API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 const instructions = {
@@ -34,7 +34,7 @@ const instructions = {
 
 const getModel = (persona) => {
     return genAI.getGenerativeModel({
-        model: 'gemini-2.5-flash-preview-05-20',
+        model: 'gemini-1.5-flash',
         systemInstruction: instructions[persona] || instructions.peter,
     });
 };
