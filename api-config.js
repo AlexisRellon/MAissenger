@@ -1,1 +1,1 @@
-﻿export const API_KEY = 'AIzaSyBX390HLi2SMGzeDG88O1FFDGw8Brvulss'; // Local development key
+﻿export const API_KEY = 'AIzaSyBjGeuTjdlbWzb8ViIrObNXyAde5uE6GVc'; // Local development key
