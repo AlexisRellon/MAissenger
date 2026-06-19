@@ -34,7 +34,7 @@ const instructions = {
 
 const getModel = (persona) => {
     return genAI.getGenerativeModel({
-        model: 'gemini-2.5-flash-preview-05-20',
+        model: 'gemma-4-31b-it',
         systemInstruction: instructions[persona] || instructions.peter,
     });
 };
